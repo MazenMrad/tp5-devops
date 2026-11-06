@@ -3,6 +3,10 @@ on:
   pull_request:
   push:
     branches: [main]
+    tags: ['v*']
+permissions:
+  contents: read
+  packages: write
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -30,5 +34,5 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: .
-          push: false
-          tags: campus-tasks:ci
+          push: true
+          tags: ghcr.io/MazenMrad/campus-tasks:${{ github.ref_name }}
