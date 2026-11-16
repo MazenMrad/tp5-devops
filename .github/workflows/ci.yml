@@ -41,4 +41,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/mazemrad/campus-tasks:${{ github.ref_name }}
+          tags: ghcr.io/mazemrad/campus-tasks:${{ github.head_ref || github.ref_name }}
