@@ -41,4 +41,11 @@ jobs:
         with:
           context: .
           push: true
+          provenance: false
           tags: ghcr.io/mazemrad/campus-tasks:${{ github.head_ref || github.ref_name }}
+      - name: Diagnostic registre (docker CLI)
+        if: failure()
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker build -t ghcr.io/mazemrad/campus-tasks:diag .
+          docker push ghcr.io/mazemrad/campus-tasks:diag 2>&1 | tail -5
